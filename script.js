@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 //postavi vrijeme ovdje!!!!
-const phase_time=12;
+const phase_time=4;
 
 const dpr = Math.ceil(window.devicePixelRatio);
 canvas.width = 200 * dpr;
@@ -13,7 +13,6 @@ ctx.scale(dpr, dpr);
 ctx.font = '20px system-ui, sans-serif';
 ctx.lineWidth = 10;
 
-//postavlja se tamna ili svojetla tema
 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.querySelector('meta[name="theme-color"]').content = 'black';
   document.querySelector('link[rel="manifest"]').href = 'manifest-dark.json';
@@ -21,13 +20,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 } else {
   ctx.strokeStyle = '#dbf5ff';
 }
-
-// faze disanja i izračunava širina teksta za svaku fazu kako bi se tekst pravilno centrirao na canvasu
 const stages = ['Udahni', 'Zadrži dah', 'Izdahni', 'Pauza'];
 const textWidths = stages.map((text) => ctx.measureText(text).width);
 
-//Ova funkcija crta tekst za određenu fazu disanja na canvasu, 
-//koristeći zadane boje i postavljajući prozirnost teksta pomoću opacity parametra.
 function text(section, opacity) {
   ctx.fillStyle = `rgba(129, 183, 204, ${opacity})`;
   ctx.fillText(stages[section], 100 - textWidths[section] / 2, 105);
