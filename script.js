@@ -1,8 +1,6 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
-
-roundedRect(ctx, 5, 5, 150, 150, 15);
 function roundedRect(ctx, x, y, width, height, radius) {
   ctx.beginPath();
   ctx.moveTo(x, y + radius);
@@ -13,16 +11,15 @@ function roundedRect(ctx, x, y, width, height, radius) {
   ctx.stroke();
 }
 //postavi vrijeme ovdje!!!!
-const phase_time=4;
+const phase_time = 6;
 
 const dpr = Math.ceil(window.devicePixelRatio);
 canvas.width = 200 * dpr;
 canvas.height = 200 * dpr;
 ctx.scale(dpr, dpr);
 
-
-ctx.font = '12px Roboto, sans-serif';
-ctx.lineWidth =8;
+ctx.font = '10px Roboto, sans-serif';
+ctx.lineWidth = 5;
 
 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.querySelector('meta[name="theme-color"]').content = 'black';
@@ -41,44 +38,34 @@ function text(section, opacity) {
 
 //Linija koja se kreće
 function line(section, location, length) {
-  ctx.fillStyle =  'rgba(35, 65, 77, 0.5)';
+  ctx.fillStyle = 'rgba(35, 65, 77, 0.5)';
   ctx.beginPath();
 
   switch (section) {
     case 0:
-      ctx.roundRect(location, 0, length, 10,50);
+      ctx.rect(location, 0, length, 10, 50);
       break;
     case 1:
-      ctx.roundRect(190, location, 10, length,50);
+      ctx.rect(190, location, 10, length, 50);
       break;
     case 2:
-      ctx.roundRect(200 - location, 190, -length, 10,50);
+      ctx.rect(200 - location, 190, -length, 10, 50);
       break;
     case 3:
-      ctx.roundRect(0, 200 - location, 10, -length,50);
+      ctx.rect(0, 200 - location, 10, -length, 50);
       break;
   }
 
   ctx.fill();
 }
-
 function tick(start) {
   const t = Date.now() - start;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   roundedRect(ctx, 5, 5, 190, 190, 15);
-  function roundedRect(ctx, x, y, width, height, radius) {
-    ctx.beginPath();
-    ctx.moveTo(x, y + radius);
-    ctx.arcTo(x, y + height, x + radius, y + height, radius);
-    ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
-    ctx.arcTo(x + width, y, x + width - radius, y, radius);
-    ctx.arcTo(x, y, x, y + radius, radius);
-    ctx.stroke();
-  }
 
-  const section = Math.floor((t / (1000*phase_time)) % 4);
+  const section = Math.floor((t / (1000 * phase_time)) % 4);
   const nextSection = (section + 1) % 4;
-  const completion = (t % (1000*phase_time)) / (1000*phase_time);
+  const completion = (t % (1000 * phase_time)) / (1000 * phase_time);
 
   line(section, completion * 190, 50);
 
