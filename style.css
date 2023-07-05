@@ -12,8 +12,7 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: black;
-    /* background: radial-gradient(circle at center, rgb(20, 30, 38) 0%, rgb(41, 61, 79) 120%); */
+    background: radial-gradient(circle at center, rgb(20, 30, 38) 0%, rgb(41, 61, 79) 120%);
   }
 }
 
@@ -21,4 +20,5 @@ canvas {
   display: block;
   width: 400px;
   height: 400px;
+  border-radius: 10%;
 }

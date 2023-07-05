@@ -1,6 +1,17 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
+
+roundedRect(ctx, 5, 5, 150, 150, 15);
+function roundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + radius);
+  ctx.arcTo(x, y + height, x + radius, y + height, radius);
+  ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
+  ctx.arcTo(x + width, y, x + width - radius, y, radius);
+  ctx.arcTo(x, y, x, y + radius, radius);
+  ctx.stroke();
+}
 //postavi vrijeme ovdje!!!!
 const phase_time=4;
 
@@ -10,13 +21,13 @@ canvas.height = 200 * dpr;
 ctx.scale(dpr, dpr);
 
 
-ctx.font = '20px system-ui, sans-serif';
-ctx.lineWidth = 10;
+ctx.font = '12px Roboto, sans-serif';
+ctx.lineWidth =8;
 
 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.querySelector('meta[name="theme-color"]').content = 'black';
   document.querySelector('link[rel="manifest"]').href = 'manifest-dark.json';
-  ctx.strokeStyle = '#162930';
+  ctx.strokeStyle = 'rgba(35, 65, 77, 0.2)';
 } else {
   ctx.strokeStyle = '#dbf5ff';
 }
@@ -24,27 +35,27 @@ const stages = ['Udahni', 'Zadrži dah', 'Izdahni', 'Pauza'];
 const textWidths = stages.map((text) => ctx.measureText(text).width);
 
 function text(section, opacity) {
-  ctx.fillStyle = `rgba(129, 183, 204, ${opacity})`;
+  ctx.fillStyle = `rgba(35, 65, 77,  ${opacity})`;
   ctx.fillText(stages[section], 100 - textWidths[section] / 2, 105);
 }
 
 //Linija koja se kreće
 function line(section, location, length) {
-  ctx.fillStyle = '#81b7cc';
+  ctx.fillStyle =  'rgba(35, 65, 77, 0.5)';
   ctx.beginPath();
 
   switch (section) {
     case 0:
-      ctx.rect(location, 0, length, 10);
+      ctx.roundRect(location, 0, length, 10,50);
       break;
     case 1:
-      ctx.rect(190, location, 10, length);
+      ctx.roundRect(190, location, 10, length,50);
       break;
     case 2:
-      ctx.rect(200 - location, 190, -length, 10);
+      ctx.roundRect(200 - location, 190, -length, 10,50);
       break;
     case 3:
-      ctx.rect(0, 200 - location, 10, -length);
+      ctx.roundRect(0, 200 - location, 10, -length,50);
       break;
   }
 
@@ -54,9 +65,16 @@ function line(section, location, length) {
 function tick(start) {
   const t = Date.now() - start;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.lineJoin = 'round';
-
-  ctx.strokeRect(5, 5, 190, 190);
+  roundedRect(ctx, 5, 5, 190, 190, 15);
+  function roundedRect(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x, y + radius);
+    ctx.arcTo(x, y + height, x + radius, y + height, radius);
+    ctx.arcTo(x + width, y + height, x + width, y + height - radius, radius);
+    ctx.arcTo(x + width, y, x + width - radius, y, radius);
+    ctx.arcTo(x, y, x, y + radius, radius);
+    ctx.stroke();
+  }
 
   const section = Math.floor((t / (1000*phase_time)) % 4);
   const nextSection = (section + 1) % 4;
