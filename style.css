@@ -12,7 +12,11 @@ body {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: radial-gradient(circle at center, rgb(20, 30, 38) 0%, rgb(41, 61, 79) 120%);
+    background: radial-gradient(
+      circle at center,
+      rgb(20, 30, 38) 0%,
+      rgb(41, 61, 79) 120%
+    );
   }
 }
 
@@ -32,14 +36,15 @@ canvas {
 }
 
 @keyframes expand-shrink {
-   100% {
+  0%,
+  100% {
     width: 400px;
   }
-  20%, 45% {
+  25%,
+  50% {
     width: 450px;
   }
-  70% {
+  75% {
     width: 350px;
   }
 }
-
