@@ -11,7 +11,7 @@ function roundedRect(ctx, x, y, width, height, radius) {
   ctx.stroke();
 }
 //postavi vrijeme ovdje!!!!
-const phase_time = 6;
+const phase_time = 4;
 
 const dpr = Math.ceil(window.devicePixelRatio);
 canvas.width = 200 * dpr;

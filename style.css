@@ -22,3 +22,24 @@ canvas {
   height: 400px;
   border-radius: 10%;
 }
+.animated-canvas {
+  display: block;
+  width: 400px;
+  height: 400px;
+  border-radius: 10%;
+  transition: width 4s ease;
+  animation: expand-shrink 16s infinite;
+}
+
+@keyframes expand-shrink {
+   100% {
+    width: 400px;
+  }
+  20%, 45% {
+    width: 450px;
+  }
+  70% {
+    width: 350px;
+  }
+}
+
