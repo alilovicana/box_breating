@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');
+const canvas = document.getElementById('main-canvas');
 const ctx = canvas.getContext('2d');
 
 function roundedRect(ctx, x, y, width, height, radius) {
@@ -10,9 +10,8 @@ function roundedRect(ctx, x, y, width, height, radius) {
   ctx.arcTo(x, y, x, y + radius, radius);
   ctx.stroke();
 }
-//postavi vrijeme ovdje!!!!
-const phase_time = 4;
 
+const phase_time = 4;
 const dpr = Math.ceil(window.devicePixelRatio);
 canvas.width = 200 * dpr;
 canvas.height = 200 * dpr;
@@ -36,7 +35,6 @@ function text(section, opacity) {
   ctx.fillText(stages[section], 100 - textWidths[section] / 2, 105);
 }
 
-//Linija koja se kreće
 function line(section, location, length) {
   ctx.fillStyle = 'rgba(35, 65, 77, 0.5)';
   ctx.beginPath();
@@ -58,6 +56,7 @@ function line(section, location, length) {
 
   ctx.fill();
 }
+
 function tick(start) {
   const t = Date.now() - start;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -90,4 +89,70 @@ function tick(start) {
 
 tick(Date.now());
 
-navigator.serviceWorker.register('sw.js', { scope: './' });
+/*******************Second_canvas******/
+const canvas2 = document.getElementById('second-canvas');
+const ctx2 = canvas2.getContext('2d');
+
+const texts = [
+  {
+    content:
+      '"Box breathing" je tehnika disanja koja:<br> <br>-smanjuje stres,<br> <br>-poboljšava raspoloženje, <br><br> -omogućava bolju kontrolu nad emocijama',
+    duration: 5000,
+    fontSize: '25px',
+  },
+  {
+    content:
+      'PRAVILA: <br> <br> <br> 1) Slijedite pogledom gibajuću crtu <br> <br>2) Čitajte naredbe u sredini kvadrata',
+    duration: 5000,
+    fontSize: '25px',
+  },
+  {
+    content:
+      'Opustite se :)',
+    duration: 3000,
+    fontSize: '30px',
+  },
+  { content: '3', duration: 1000, fontSize: '150px' },
+  { content: '2', duration: 1000, fontSize: '150px' },
+  { content: '1', duration: 1000, fontSize: '150px' },
+];
+
+let currentIndex = 0;
+
+function drawText() {
+  const dpr = Math.ceil(window.devicePixelRatio); // Računanje razlučivosti uređaja
+
+  // Postavljanje širine i visine canvasa s skaliranjem
+  canvas2.width = 700 * dpr;
+  canvas2.height = 700 * dpr;
+  ctx2.scale(dpr, dpr);
+
+  ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+  ctx2.fillStyle = '#FFA500';
+  ctx2.font = texts[currentIndex].fontSize + ' Roboto';
+
+  const lines = texts[currentIndex].content.split('<br>'); // Podjela teksta na linije na temelju <br> tagova
+
+  const lineHeight = 30; // Visina svake linije teksta
+  const textWidth = ctx2.measureText(lines[0]).width; // Širina prvog retka teksta
+  const textHeight = lines.length * lineHeight; // Visina teksta
+
+  const startX = (canvas2.width - textWidth) / 4; // Početna pozicija x-osi teksta
+  const startY = (canvas2.height - textHeight) / 4; // Početna pozicija y-osi teksta
+
+  ctx2.textAlign = 'center'; // Postavljanje poravnanja teksta na centar
+  ctx2.textBaseline = 'middle'; // Postavljanje bazne linije teksta na sredinu
+
+  lines.forEach((line, index) => {
+    const x = canvas2.width / 4; // X-koordinata centra canvasa
+    const y = startY + index * lineHeight;
+    ctx2.fillText(line, x, y);
+  });
+
+  setTimeout(() => {
+    currentIndex = (currentIndex + 1) % texts.length;
+    drawText();
+  }, texts[currentIndex].duration);
+}
+
+drawText();

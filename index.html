@@ -10,11 +10,52 @@
     <link rel="icon" href="icon.svg" />
     <link rel="manifest" href="manifest-light.json" />
     <meta name="theme-color" content="white" />
-
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <script src="main_script.js" defer></script>
   </head>
   <body>
-    <canvas aria-label="" aria-live="assertive" class="animated-canvas"></canvas>
+    <canvas
+      id="main-canvas"
+      aria-label=""
+      aria-live="assertive"
+      class="main-canvas"
+    ></canvas>
+    <canvas
+      id="second-canvas"
+      aria-label=""
+      aria-live="assertive"
+      class="second-canvas"
+    ></canvas>
+    <script>
+      const mainCanvas = document.getElementById('main-canvas');
+      const secondCanvas = document.getElementById('second-canvas');
+
+      const duration1 = 16; // Trajanje prvog kanvasa u sekundama
+      const duration2 = 64; // Trajanje drugog kanvasa u sekundama
+      const totalDuration = duration1 + duration2; // Ukupno trajanje animacije
+
+      let startTime = Date.now();
+
+      function animate() {
+        const currentTime = Date.now();
+        const elapsedSeconds = (currentTime - startTime) / 1000;
+
+        if (elapsedSeconds < duration1) {
+          mainCanvas.style.display = 'none';
+          secondCanvas.style.display  = 'block';
+        } else if (elapsedSeconds < totalDuration) {
+          mainCanvas.style.display = 'block';
+          secondCanvas.style.display  = 'none';
+        } else {
+          mainCanvas.style.display  = 'none';
+          secondCanvas.style.display  = 'none';
+          return; // Zaustavljanje animacije kad istekne ukupno trajanje
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
   </body>
 </html>
