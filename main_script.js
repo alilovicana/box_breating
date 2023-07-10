@@ -36,7 +36,8 @@ function text(section, opacity) {
 }
 
 function line(section, location, length) {
-  ctx.fillStyle = 'rgba(35, 65, 77, 0.5)';
+  // ctx.fillStyle = 'rgba(35, 65, 77, 0.5)';
+  ctx.fillStyle = 'white';
   ctx.beginPath();
 
   switch (section) {
@@ -89,7 +90,7 @@ function tick(start) {
 
 tick(Date.now());
 
-/*******************Second_canvas******/
+/*******************Second_canvas*****************/
 const canvas2 = document.getElementById('second-canvas');
 const ctx2 = canvas2.getContext('2d');
 
@@ -102,13 +103,12 @@ const texts = [
   },
   {
     content:
-      'PRAVILA: <br> <br> <br> 1) Slijedite pogledom gibajuću crtu <br> <br>2) Čitajte naredbe u sredini kvadrata',
+      'PRAVILA: <br> <br> <br> Čitajte naredbe u sredini kvadrata <br> <br>1) Udahni- udišite zrak 4 sekunde <br> <br>2) Zadrži dah- zadrži dah 4 sekunde <br> <br>3) Izdahni- Izdišite zrak 4 sekunde <br> <br>4) Pauza- dišite slobodno 4 sekunde ',
     duration: 5000,
     fontSize: '25px',
   },
   {
-    content:
-      'Opustite se :)',
+    content: 'Opustite se :)',
     duration: 3000,
     fontSize: '30px',
   },
@@ -118,7 +118,9 @@ const texts = [
 ];
 
 let currentIndex = 0;
-
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const startX = screenWidth / 4.5; // Početna pozicija x-osi teksta
 function drawText() {
   const dpr = Math.ceil(window.devicePixelRatio); // Računanje razlučivosti uređaja
 
@@ -128,25 +130,23 @@ function drawText() {
   ctx2.scale(dpr, dpr);
 
   ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-  ctx2.fillStyle = '#FFA500';
+  // ctx2.fillStyle = '#FFA500';
+  ctx2.fillStyle = '#c0c0c0';
   ctx2.font = texts[currentIndex].fontSize + ' Roboto';
-
   const lines = texts[currentIndex].content.split('<br>'); // Podjela teksta na linije na temelju <br> tagova
 
   const lineHeight = 30; // Visina svake linije teksta
   const textWidth = ctx2.measureText(lines[0]).width; // Širina prvog retka teksta
   const textHeight = lines.length * lineHeight; // Visina teksta
 
-  const startX = (canvas2.width - textWidth) / 4; // Početna pozicija x-osi teksta
-  const startY = (canvas2.height - textHeight) / 4; // Početna pozicija y-osi teksta
+  const startY = (screenHeight - textHeight) / 2; // Početna pozicija y-osi teksta
 
   ctx2.textAlign = 'center'; // Postavljanje poravnanja teksta na centar
   ctx2.textBaseline = 'middle'; // Postavljanje bazne linije teksta na sredinu
 
   lines.forEach((line, index) => {
-    const x = canvas2.width / 4; // X-koordinata centra canvasa
     const y = startY + index * lineHeight;
-    ctx2.fillText(line, x, y);
+    ctx2.fillText(line, startX, y);
   });
 
   setTimeout(() => {

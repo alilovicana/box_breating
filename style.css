@@ -21,9 +21,9 @@ body {
 }
 
 #main-canvas {
-  display: block;
-  width: 400px;
-  height: 400px;
+  display: none;
+  width: 40%; /* Dodajte ovo svojstvo */
+  height: auto; /* Dodajte ovo svojstvo */
   border-radius: 10%;
   transition: width 4s ease;
   animation: expand-shrink 16s infinite;
@@ -32,14 +32,14 @@ body {
 @keyframes expand-shrink {
   0%,
   100% {
-    width: 400px;
+    width: 40%;
   }
   25%,
   50% {
-    width: 450px;
+    width: 42%;
   }
   75% {
-    width: 350px;
+    width: 38%;
   }
 }
 
@@ -47,11 +47,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 700px;
-  height: 700px;
   border-radius: 10%;
   background-color: rgba(255, 255, 255, 0.2);
   text-align: center;
   vertical-align: middle;
+  width: 60%; /* Dodajte ovo svojstvo */
+  height: auto; /* Dodajte ovo svojstvo */
 }
+/**********RESPONZIVNOST*****************/
+
 
