@@ -57,9 +57,9 @@ function line(section, location, length) {
 
   ctx.fill();
 }
-
+const ten=10000;
 function tick(start) {
-  const t = Date.now() - start;
+  const t = Date.now() - start-ten;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   roundedRect(ctx, 5, 5, 190, 190, 15);
 
@@ -98,13 +98,13 @@ const texts = [
   {
     content:
       '"Box breathing" je tehnika disanja koja:<br> <br>-smanjuje stres,<br> <br>-poboljšava raspoloženje, <br><br> -omogućava bolju kontrolu nad emocijama',
-    duration: 5000,
+    duration: 10000,
     fontSize: '25px',
   },
   {
     content:
       'PRAVILA: <br> <br> <br> Čitajte naredbe u sredini kvadrata <br> <br>1) Udahni- udišite zrak 4 sekunde <br> <br>2) Zadrži dah- zadrži dah 4 sekunde <br> <br>3) Izdahni- Izdišite zrak 4 sekunde <br> <br>4) Pauza- dišite slobodno 4 sekunde ',
-    duration: 5000,
+    duration: 10000,
     fontSize: '25px',
   },
   {
